@@ -42,6 +42,7 @@ impl<Backend: AuthnBackend> From<session::Error> for Error<Backend> {
 struct Data<UserId> {
     user_id: Option<UserId>,
     auth_hash: Option<Vec<u8>>,
+    user_agent: Option<String>,
 }
 
 impl<UserId: Clone> Default for Data<UserId> {
@@ -49,6 +50,7 @@ impl<UserId: Clone> Default for Data<UserId> {
         Self {
             user_id: None,
             auth_hash: None,
+            user_agent: None,
         }
     }
 }
@@ -107,7 +109,11 @@ impl<Backend: AuthnBackend> AuthSession<Backend> {
 
     /// Updates the session such that the user is logged in.
     #[tracing::instrument(level = "debug", skip_all, fields(user.id = user.id().to_string()), ret, err)]
-    pub async fn login(&mut self, user: &Backend::User) -> Result<(), Error<Backend>> {
+    pub async fn login(
+        &mut self,
+        user: &Backend::User,
+        user_agent: &Option<String>,
+    ) -> Result<(), Error<Backend>> {
         self.user = Some(user.clone());
 
         if self.data.auth_hash.is_none() {
@@ -117,6 +123,7 @@ impl<Backend: AuthnBackend> AuthSession<Backend> {
 
         self.data.user_id = Some(user.id());
         self.data.auth_hash = Some(user.session_auth_hash().to_owned());
+        self.data.user_agent = user_agent.to_owned();
 
         self.update_session().await?;
 
@@ -316,7 +323,7 @@ mod tests {
             data_key: "auth_data",
         };
 
-        auth_session.login(&mock_user).await.unwrap();
+        auth_session.login(&mock_user, &None).await.unwrap();
         assert!(auth_session.user.is_some());
         assert_eq!(auth_session.user.unwrap().id(), 42);
 
@@ -376,6 +383,7 @@ mod tests {
         let data = Data {
             user_id: Some(42),
             auth_hash: Some(vec![1, 2, 3, 4]),
+            user_agent: None,
         };
         session.insert(data_key, &data).await.unwrap();
 
@@ -409,6 +417,7 @@ mod tests {
         let data = Data {
             user_id: Some(42),
             auth_hash: Some(vec![4, 3, 2, 1]),
+            user_agent: None,
         };
         session.insert(data_key, &data).await.unwrap();
 

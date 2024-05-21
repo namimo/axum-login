@@ -63,7 +63,7 @@ mod get {
             Err(_) => return StatusCode::INTERNAL_SERVER_ERROR.into_response(),
         };
 
-        if auth_session.login(&user).await.is_err() {
+        if auth_session.login(&user, &None).await.is_err() {
             return StatusCode::INTERNAL_SERVER_ERROR.into_response();
         }
 

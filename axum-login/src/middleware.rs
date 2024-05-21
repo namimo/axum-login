@@ -318,7 +318,7 @@ mod tests {
             .route(
                 "/login",
                 axum::routing::get(|mut auth_session: AuthSession<Backend>| async move {
-                    auth_session.login(&User).await.unwrap();
+                    auth_session.login(&User, &None).await.unwrap();
                 }),
             )
             .layer(auth_layer!());
@@ -352,7 +352,7 @@ mod tests {
             .route(
                 "/login",
                 axum::routing::get(|mut auth_session: AuthSession<Backend>| async move {
-                    auth_session.login(&User).await.unwrap();
+                    auth_session.login(&User, &None).await.unwrap();
                 }),
             )
             .layer(auth_layer!());
@@ -397,7 +397,7 @@ mod tests {
             .route(
                 "/signin",
                 axum::routing::get(|mut auth_session: AuthSession<Backend>| async move {
-                    auth_session.login(&User).await.unwrap();
+                    auth_session.login(&User, &None).await.unwrap();
                 }),
             )
             .layer(auth_layer!());
@@ -438,7 +438,7 @@ mod tests {
             .route(
                 "/login",
                 axum::routing::get(|mut auth_session: AuthSession<Backend>| async move {
-                    auth_session.login(&User).await.unwrap();
+                    auth_session.login(&User, &None).await.unwrap();
                 }),
             )
             .layer(auth_layer!());
@@ -472,7 +472,7 @@ mod tests {
             .route(
                 "/login",
                 axum::routing::get(|mut auth_session: AuthSession<Backend>| async move {
-                    auth_session.login(&User).await.unwrap();
+                    auth_session.login(&User, &None).await.unwrap();
                 }),
             )
             .layer(auth_layer!());
@@ -510,7 +510,7 @@ mod tests {
             .route(
                 "/login",
                 axum::routing::get(|mut auth_session: AuthSession<Backend>| async move {
-                    auth_session.login(&User).await.unwrap();
+                    auth_session.login(&User, &None).await.unwrap();
                 }),
             )
             .layer(auth_layer!());
@@ -555,7 +555,7 @@ mod tests {
             .route(
                 "/signin",
                 axum::routing::get(|mut auth_session: AuthSession<Backend>| async move {
-                    auth_session.login(&User).await.unwrap();
+                    auth_session.login(&User, &None).await.unwrap();
                 }),
             )
             .layer(auth_layer!());
@@ -600,7 +600,7 @@ mod tests {
             .route(
                 "/login",
                 axum::routing::get(|mut auth_session: AuthSession<Backend>| async move {
-                    auth_session.login(&User).await.unwrap();
+                    auth_session.login(&User, &None).await.unwrap();
                 }),
             )
             .layer(auth_layer!());

@@ -1,5 +1,13 @@
 # Unreleased
 
+# 0.15.3
+
+- Update dev dependencies; placate docs.rs
+
+# 0.15.2
+
+- Avoid unnecessary clone #225
+
 # 0.15.1
 
 - Replace `ring` with `subtle` #216

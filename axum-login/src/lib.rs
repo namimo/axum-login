@@ -3,7 +3,7 @@
 //! This crate provides user identification, authentication, and authorization
 //! as a `tower` middleware for `axum`.
 //!
-//! If offers:
+//! It offers:
 //!
 //! - **User Identification, Authentication, and Authorization**: Leverage
 //!   [`AuthSession`] to easily manage authentication and authorization. This is
@@ -94,9 +94,8 @@
 //! It's worth covering a couple of these methods in a little more detail:
 //!
 //! - `session_auth_hash`, which is used to validate the session; in our example
-//!   we use
-//! a user's password hash, which means changing passwords will invalidate the
-//! session.
+//!   we use a user's password hash, which means changing passwords will
+//!   invalidate the session.
 //! - `get_user`, which is used to load the user from the backend into the
 //!   session.
 //!
